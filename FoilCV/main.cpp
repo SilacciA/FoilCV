@@ -22,7 +22,7 @@ extern Mat applySift(Mat* frame);
 int main(int argc, const char * argv[]) {
     String* path = 0;
     String* destPath = 0;
-    if(argc == 2){
+    if(argc == 3){
         path = new String(argv[1]);
         destPath = new String(argv[2]);
     }else{
