@@ -23,13 +23,19 @@ public:
     StreamController(String path, String destPath, SIFTAnnotator* annotator, double startingFrameNb);
     virtual ~StreamController();
     
-    virtual void startProcessing();
+    virtual void startProcessing(bool parallel,const unsigned int blocksize);
     
 private:
     SIFTAnnotator* annotator;
     VideoCapture* cap;
     double startingFrameNb;
     String* destPath;
+
+    void processSequentially(double startFrame, unsigned int stopFrame);
+    void processSequentially();
+    void processParallel();
+    
+    void saveResults(std::list<Result*>* results,int indexStart);
     
 };
 #endif /* StreamController_hpp */
