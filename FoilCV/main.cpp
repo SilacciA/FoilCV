@@ -7,9 +7,8 @@
 //
 
 #include <iostream>
-#include <string.h>
+#include <cstring>
 #include <opencv2/opencv.hpp>
-#include <opencv2/xfeatures2d/nonfree.hpp>
 #include "annotators/SIFTAnnotator.hpp"
 #include "controllers/StreamController.hpp"
 
@@ -20,8 +19,8 @@ extern void showFrame(VideoCapture* cap, int crtFrame, int frameNb,  bool showFr
 extern Mat applySift(Mat* frame);
 
 int main(int argc, const char * argv[]) {
-    String* path = 0;
-    String* destPath = 0;
+    String* path = NULL;
+    String* destPath = NULL;
     if(argc == 3){
         path = new String(argv[1]);
         destPath = new String(argv[2]);
@@ -34,7 +33,7 @@ int main(int argc, const char * argv[]) {
     StreamController streamController(*path,*destPath,&annotator,3790.0);
     
     std::cout << "Starting Processing" << std::endl;
-    streamController.startProcessing();
+    streamController.startProcessing(false,20);
     // the camera will be deinitialized automatically in VideoCapture destructor
     return 0;
 }
