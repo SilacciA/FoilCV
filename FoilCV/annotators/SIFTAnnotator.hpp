@@ -9,11 +9,11 @@
 #ifndef SIFTAnnotator_hpp
 #define SIFTAnnotator_hpp
 
-#include <stdio.h>
+#include <cstdio>
 #include <opencv2/opencv.hpp>
 #include <opencv2/xfeatures2d/nonfree.hpp>
 #include "Annotator.hpp"
-#include "Result.h"
+#include "../Result.h"
 
 using namespace cv;
 

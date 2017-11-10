@@ -16,8 +16,8 @@ SIFTAnnotator::~SIFTAnnotator(){
 }
 
 Result* SIFTAnnotator::annotate(Mat* frame){
-    Mat grayScaledFrame;
-    cvtColor(*frame, grayScaledFrame, CV_BGR2GRAY);
+    /*Mat grayScaledFrame;
+    cvtColor(*frame, grayScaledFrame, CV_BGR2GRAY);*/
     Mat output;
     std::vector<KeyPoint> keypoints;
     this->f2d->detect(*frame, keypoints);
