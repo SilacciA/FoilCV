@@ -50,17 +50,18 @@ void StreamController::processSequentially(double startFrame, unsigned int numbe
     if(!this->cap->isOpened())  // check if stream is open
         return;
     this->cap->set(CV_CAP_PROP_POS_FRAMES, startFrame);
-    std::list<Result*> results;
+    Result** results = new Result*[numberOfFrames];
     unsigned int st_int = (unsigned int) startFrame; // yes I did it.
     unsigned int n = st_int+numberOfFrames;
+    unsigned int res_i = 0;
     for(unsigned int i = st_int; i < n;i++){ // indicational number of frames to compute, will change (obviously).
         Mat* frame = new Mat();
         (*cap) >> (*frame);
-        Result* res = this->annotator->annotate(frame);
-        results.push_back(res);
+        results[res_i++] = this->annotator->annotate(frame);
         delete frame;
     }
-    this->saveResults(&results,startFrame);
+    this->saveResults(results,numberOfFrames,startFrame);
+    delete[] results;
 }
 
 /**
@@ -81,6 +82,17 @@ void StreamController::processParallel(){
         results.push_back(res);
     }
     this->saveResults(&results,0);
+}
+
+void StreamController::saveResults(Result** results,int len,int indexStart=0){
+    int i = indexStart;
+    for(int res_i=0;res_i< len;res_i++){
+        Result* res = results[res_i];
+        Mat* output = res->getAnnotatedFrame();
+        std::cout << "Write of image started" << std::endl;
+        imwrite(format("%s_%d.png",this->destPath->c_str(),i++),*output);
+        std::cout << "Write of image completed" << std::endl;
+    }
 }
 
 void StreamController::saveResults(std::list<Result*>* results,int indexStart=0){

@@ -35,6 +35,7 @@ private:
     void processSequentially();
     void processParallel();
     
+    void saveResults(Result** results,int len,int indexStart);
     void saveResults(std::list<Result*>* results,int indexStart);
     
 };
