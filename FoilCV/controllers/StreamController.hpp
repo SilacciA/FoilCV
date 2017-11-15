@@ -33,7 +33,7 @@ private:
 
     void processSequentially(double startFrame, unsigned int stopFrame);
     void processSequentially();
-    void processParallel();
+    //void processParallel();
     
     void saveResults(Result** results,int len,int indexStart);
     void saveResults(std::list<Result*>* results,int indexStart);

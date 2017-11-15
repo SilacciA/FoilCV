@@ -21,7 +21,7 @@ class SIFTAnnotator{
 public:
     SIFTAnnotator();
     ~SIFTAnnotator();
-    virtual Result* annotate(Mat* frame);
+    virtual Result* annotate(Mat& frame);
 private:
     Ptr<Feature2D> f2d;   
 };

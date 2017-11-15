@@ -7,7 +7,7 @@
 //
 #include "Result.h"
 
-Result::Result(Mat frame, std::vector<KeyPoint> keypoints, Mat annotatedFrame){
+Result::Result(Mat& frame, std::vector<KeyPoint>& keypoints, Mat& annotatedFrame){
     this->frame = new Mat(frame);
     this->keypoints = new std::vector<KeyPoint>(keypoints);
     this->annotatedFrame = new Mat(annotatedFrame);

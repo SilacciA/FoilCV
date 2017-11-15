@@ -17,7 +17,7 @@ using namespace cv;
 
 class Result {
 public:
-    Result(Mat frame, std::vector<KeyPoint> keypoints, Mat annotatedFrame);
+    Result(Mat& frame, std::vector<KeyPoint>& keypoints, Mat& annotatedFrame);
     ~Result();
     virtual Mat* getFrame();
     virtual Mat* getAnnotatedFrame();

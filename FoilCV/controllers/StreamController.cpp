@@ -22,7 +22,7 @@ StreamController::~StreamController(){
 
 void StreamController::startProcessing(bool parallel=false,const unsigned int blocksize=0){
     if(parallel){
-        processParallel();
+        //processParallel();
     }else{
         if(blocksize == 0){
             processSequentially();
@@ -57,17 +57,20 @@ void StreamController::processSequentially(double startFrame, unsigned int numbe
     for(unsigned int i = st_int; i < n;i++){ // indicational number of frames to compute, will change (obviously).
         Mat* frame = new Mat();
         (*cap) >> (*frame);
-        results[res_i++] = this->annotator->annotate(frame);
+        results[res_i++] = this->annotator->annotate(*frame);
         delete frame;
     }
     this->saveResults(results,numberOfFrames,startFrame);
+    for(int i = 0; i < numberOfFrames;i++){
+        delete results[i];
+    }
     delete[] results;
 }
 
 /**
  * DO NOT USE THAT ! IT DOES NOT WORK AT ALL.
  * */
-void StreamController::processParallel(){
+/*void StreamController::processParallel(){
     if(!this->cap->isOpened())  // check if stream is open
         return;
     int frameNb = this->cap->get(CV_CAP_PROP_FRAME_COUNT); // for now not used
@@ -78,11 +81,11 @@ void StreamController::processParallel(){
         Mat frame;
         this->cap->set(CV_CAP_PROP_POS_FRAMES, i);
         (*cap) >> frame;
-        Result* res = this->annotator->annotate(&frame);
+        Result* res = this->annotator->annotate(*frame);
         results.push_back(res);
     }
     this->saveResults(&results,0);
-}
+}*/
 
 void StreamController::saveResults(Result** results,int len,int indexStart=0){
     int i = indexStart;
